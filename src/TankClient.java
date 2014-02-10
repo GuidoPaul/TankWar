@@ -12,13 +12,28 @@ public class TankClient extends Frame {
 
 	int x = 50, y = 50;
 
+	Image offScreenImage = null;
+
 	public void paint(Graphics g) {
 		Color c = g.getColor();  // *
-		g.setColor(Color.red);
+		g.setColor(Color.RED);
 		g.fillOval(x, y, 30, 30);
 		g.setColor(c);  // *
 
 		y += 5;
+	}
+
+	public void update(Graphics g) {
+		if(offScreenImage == null) {
+			offScreenImage = this.createImage(800, 600);
+		}
+		Graphics goffScreen = offScreenImage.getGraphics();
+		Color c = goffScreen.getColor();
+		goffScreen.setColor(Color.GREEN);
+		goffScreen.fillRect(0, 0, 800, 600);
+		goffScreen.setColor(c);
+		paint(goffScreen);  // 先画到背面的虚拟图片
+		g.drawImage(offScreenImage, 0, 0, null);  // 再画到前面图片上
 	}
 
 	public void launchFrame() {
@@ -30,7 +45,7 @@ public class TankClient extends Frame {
 			}
 		});
 		setResizable(false);
-		setBackground(Color.green);
+		setBackground(Color.GREEN);
 		setVisible(true);
 
 		new Thread(new PaintThread()).start();
@@ -39,9 +54,9 @@ public class TankClient extends Frame {
 	private class PaintThread implements Runnable {
 		public void run() {
 			while(true) {
-				repaint();
+				repaint();  // -> update() ->paint().
 				try {
-					Thread.sleep(100);
+					Thread.sleep(20);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

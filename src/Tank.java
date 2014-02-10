@@ -30,7 +30,7 @@ public class Tank {
 		move();
 	}
 
-	void move() {
+	private void move() {
 		switch(dir) {
 			case L:
 				x -= XSPEED;

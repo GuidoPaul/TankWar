@@ -14,12 +14,12 @@ public class Missile {
 	public static final int WIDTH = 10;
 	public static final int HEIGHT = 10;
 
-	Tank.Direction dir;
+	Tank.Direction ptDir;
 
-	public Missile(int x, int y, Tank.Direction dir) {
+	public Missile(int x, int y, Tank.Direction ptDir) {
 		this.x = x;
 		this.y = y;
-		this.dir = dir;
+		this.ptDir = ptDir;
 	}
 
 	public void draw(Graphics g) {
@@ -31,7 +31,7 @@ public class Missile {
 	}
 
 	private void move() {
-		switch(dir) {
+		switch(ptDir) {
 			case L:
 				x -= XSPEED;
 				break;

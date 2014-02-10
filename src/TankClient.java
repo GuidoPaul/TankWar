@@ -10,13 +10,15 @@ import java.awt.event.*;
 
 public class TankClient extends Frame {
 
+	int x = 50, y = 50;
+
 	public void paint(Graphics g) {
 		Color c = g.getColor();  // *
 		g.setColor(Color.red);
-		g.fillOval(50, 50, 30, 30);
-		// g.setColor(Color.blue);
-		// g.fillOval(100, 100, 30, 30);
+		g.fillOval(x, y, 30, 30);
 		g.setColor(c);  // *
+
+		y += 5;
 	}
 
 	public void launchFrame() {
@@ -30,6 +32,21 @@ public class TankClient extends Frame {
 		setResizable(false);
 		setBackground(Color.green);
 		setVisible(true);
+
+		new Thread(new PaintThread()).start();
+	}
+
+	private class PaintThread implements Runnable {
+		public void run() {
+			while(true) {
+				repaint();
+				try {
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 	public static void main(String[] args) {

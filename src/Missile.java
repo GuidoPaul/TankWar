@@ -9,6 +9,8 @@ import java.awt.*;
 
 public class Missile {
 	int x, y;
+	private TankClient tc = null;
+
 	public static final int XSPEED = 10;
 	public static final int YSPEED = 10;
 	public static final int WIDTH = 10;
@@ -20,6 +22,11 @@ public class Missile {
 		this.x = x;
 		this.y = y;
 		this.ptDir = ptDir;
+	}
+
+	public Missile(int x, int y, Tank.Direction ptDir, TankClient tc) {
+		this(x, y, ptDir);
+		this.tc = tc;
 	}
 
 	public void draw(Graphics g) {
@@ -60,6 +67,9 @@ public class Missile {
 				x -= XSPEED;
 				y += YSPEED;
 				break;
+		}
+		if(x < 0 || y < 0 || x > TankClient.GAME_WIDTH || y > TankClient.GAME_HEIGHT) {
+			tc.missiles.remove(this);
 		}
 	}
 

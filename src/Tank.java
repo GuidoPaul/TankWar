@@ -10,7 +10,8 @@ import java.awt.event.*;
 
 public class Tank {
 	int x, y;
-	TankClient tc = null;
+	private TankClient tc = null;
+
 	public static final int XSPEED = 5;
 	public static final int YSPEED = 5;
 	public static final int WIDTH = 30;
@@ -99,6 +100,11 @@ public class Tank {
 				break;
 		}
 		if(dir != Direction.STOP) ptDir = dir;
+
+		if(x < 0) x = 0;
+		if(y < 30) y = 30;
+		if(x + Tank.WIDTH > TankClient.GAME_WIDTH) x = TankClient.GAME_WIDTH - Tank.WIDTH;
+		if(y + Tank.HEIGHT > TankClient.GAME_HEIGHT) y = TankClient.GAME_HEIGHT - Tank.HEIGHT;
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -157,7 +163,7 @@ public class Tank {
 	public Missile fire() {
 		int x = this.x + Tank.WIDTH / 2 - Missile.WIDTH / 2;
 		int y = this.y + Tank.HEIGHT / 2 - Missile.HEIGHT / 2;
-		Missile m = new Missile(x, y, ptDir);
+		Missile m = new Missile(x, y, ptDir, this.tc);
 		tc.missiles.add(m);
 		return m;
 	}

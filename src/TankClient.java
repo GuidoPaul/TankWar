@@ -16,6 +16,8 @@ public class TankClient extends Frame {
 	public static final int GAME_HEIGHT = 600;
 
 	Tank myTank = new Tank(50, 50, true, this);
+	Wall w1 = new Wall(200, 200, 50, 100, this);
+	Wall w2 = new Wall(500, 200, 100, 50, this);
 
 	List<Tank> tanks = new ArrayList<Tank>();
 	List<Missile> missiles = new ArrayList<Missile>();
@@ -29,9 +31,13 @@ public class TankClient extends Frame {
 		g.drawString("tanks count : " + tanks.size(), 10, 90);
 
 		myTank.draw(g);
+		w1.draw(g);
+		w2.draw(g);
 
 		for (int i=0; i<tanks.size(); i++) {
 			Tank t = tanks.get(i);
+			t.hitWall(w1);
+			t.hitWall(w2);
 			t.draw(g);
 		}
 
@@ -39,6 +45,8 @@ public class TankClient extends Frame {
 			Missile m = missiles.get(i);
 			m.hitTanks(tanks);
 			m.hitTank(myTank);
+			m.hitWall(w1);
+			m.hitWall(w2);
 			m.draw(g);
 		}
 

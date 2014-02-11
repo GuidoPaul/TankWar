@@ -26,6 +26,8 @@ public class Tank {
 	private Direction dir = Direction.STOP;
 	private Direction ptDir = Direction.D;
 
+	private int oldX, oldY;
+
 	private static Random r = new Random();
 	private int step = r.nextInt(20) + 3;
 
@@ -95,6 +97,10 @@ public class Tank {
 	}
 
 	private void move() {
+
+		oldX = x;
+		oldY = y;
+
 		switch(dir) {
 			case L:
 				x -= XSPEED;
@@ -212,6 +218,19 @@ public class Tank {
 
 	public Rectangle getRect() {
 		return new Rectangle(x, y, WIDTH, HEIGHT);
+	}
+
+	private void stay() {
+		x = oldX;
+		y = oldY;
+	}
+
+	public boolean hitWall(Wall w) {
+		if(this.live && this.getRect().intersects(w.getRect()) ) {
+			this.stay();
+			return true;
+		}
+		return false;
 	}
 
 }

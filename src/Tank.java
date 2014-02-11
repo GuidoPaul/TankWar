@@ -12,7 +12,8 @@ public class Tank {
 	int x, y;
 	private TankClient tc = null;
 
-	private boolean good;
+	private boolean good = true;
+	private boolean live = true;
 
 	public static final int XSPEED = 5;
 	public static final int YSPEED = 5;
@@ -35,7 +36,18 @@ public class Tank {
 		this.tc = tc;  // * 持有对方引用
 	}
 
+	public boolean isLive() {
+		return this.live;
+	}
+	
+	public void setLive(boolean live) {
+		this.live = live;
+	}
+
 	public void draw(Graphics g) {
+		if(!live) {
+			return ;
+		}
 		Color c = g.getColor();  // *
 		if(good == true) g.setColor(Color.RED);
 		else g.setColor(Color.BLUE);
@@ -170,6 +182,10 @@ public class Tank {
 		Missile m = new Missile(x, y, ptDir, this.tc);
 		tc.missiles.add(m);
 		return m;
+	}
+
+	public Rectangle getRect() {
+		return new Rectangle(x, y, WIDTH, HEIGHT);
 	}
 
 }

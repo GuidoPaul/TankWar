@@ -10,6 +10,7 @@ import java.awt.*;
 public class Missile {
 	int x, y;
 	private TankClient tc = null;
+	private boolean live = true;
 
 	public static final int XSPEED = 10;
 	public static final int YSPEED = 10;
@@ -29,7 +30,15 @@ public class Missile {
 		this.tc = tc;
 	}
 
+	public boolean isLive() {
+		return this.live;
+	}
+
 	public void draw(Graphics g) {
+		if(!live) {
+			tc.missiles.remove(this);
+			return ;
+		}
 		Color c = g.getColor();
 		g.setColor(Color.BLACK);
 		g.fillOval(x, y, WIDTH, HEIGHT);
@@ -69,8 +78,21 @@ public class Missile {
 				break;
 		}
 		if(x < 0 || y < 0 || x > TankClient.GAME_WIDTH || y > TankClient.GAME_HEIGHT) {
-			tc.missiles.remove(this);
+			live = false;
 		}
+	}
+
+	public Rectangle getRect() {
+		return new Rectangle(x, y, WIDTH, HEIGHT);
+	}
+
+	public boolean hitTank(Tank t) {
+		if(getRect().intersects(t.getRect()) && t.isLive()) {
+			t.setLive(false);
+			this.live = false;
+			return true;
+		}
+		return false;
 	}
 
 }

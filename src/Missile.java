@@ -90,6 +90,8 @@ public class Missile {
 		if(getRect().intersects(t.getRect()) && t.isLive()) {
 			t.setLive(false);
 			this.live = false;
+			Explode e = new Explode(x, y, tc);
+			tc.explodes.add(e);
 			return true;
 		}
 		return false;

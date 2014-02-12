@@ -15,6 +15,7 @@ public class Tank {
 
 	private boolean good = true;
 	private boolean live = true;
+	private int life = 100;
 
 	public static final int XSPEED = 5;
 	public static final int YSPEED = 5;
@@ -52,6 +53,14 @@ public class Tank {
 
 	public boolean isGood() {
 		return good;
+	}
+
+	public int getLife() {
+		return life;
+	}
+
+	public void setLife(int life) {
+		this.life = life;
 	}
 
 	public void draw(Graphics g) {

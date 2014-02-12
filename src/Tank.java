@@ -233,4 +233,23 @@ public class Tank {
 		return false;
 	}
 
+	public boolean hitTank(Tank t) {
+		if(this.live && t.isLive() && this.getRect().intersects(t.getRect())) {
+			this.stay();
+			t.stay();
+			return true;
+		}
+		return false;
+	}
+
+	public boolean hitTanks(java.util.List<Tank> tanks) {
+		for (int i=0; i<tanks.size(); i++) {
+			Tank t = tanks.get(i);
+			if(this != t) {
+				hitTank(t);
+			}
+		}
+		return false;
+	}
+
 }

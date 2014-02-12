@@ -15,9 +15,10 @@ public class TankClient extends Frame {
 	public static final int GAME_WIDTH = 800;
 	public static final int GAME_HEIGHT = 600;
 
-	Tank myTank = new Tank(50, 50, true, this);
-	Wall w1 = new Wall(200, 200, 50, 100, this);
-	Wall w2 = new Wall(500, 200, 100, 50, this);
+	Tank myTank = new Tank(400, 500, true, this);
+	Wall w1 = new Wall(200, 200, 50, 200, this);
+	Wall w2 = new Wall(500, 200, 200, 50, this);
+	Blood b = new Blood(this);
 
 	List<Tank> tanks = new ArrayList<Tank>();
 	List<Missile> missiles = new ArrayList<Missile>();
@@ -26,14 +27,22 @@ public class TankClient extends Frame {
 	Image offScreenImage = null;
 
 	public void paint(Graphics g) {
+		Color c = g.getColor();
+		g.setColor(Color.BLUE);
 		g.drawString("missiles count : " + missiles.size(), 10, 50);
 		g.drawString("explodes count : " + explodes.size(), 10, 70);
 		g.drawString("tanks    count : " + tanks.size(), 10, 90);
 		g.drawString("tanks     life : " + myTank.getLife(), 10, 110);
+		g.setColor(c);
 
 		myTank.draw(g);
+		myTank.hitWall(w1);
+		myTank.hitWall(w2);
+		myTank.hitTanks(tanks);
+		myTank.eat(b);
 		w1.draw(g);
 		w2.draw(g);
+		b.draw(g);
 
 		for (int i=0; i<tanks.size(); i++) {
 			Tank t = tanks.get(i);
@@ -64,7 +73,7 @@ public class TankClient extends Frame {
 		}
 		Graphics goffScreen = offScreenImage.getGraphics();
 		Color c = goffScreen.getColor();
-		goffScreen.setColor(Color.GREEN);
+		goffScreen.setColor(Color.BLACK);
 		goffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
 		goffScreen.setColor(c);
 		paint(goffScreen);  // 先画到背面的虚拟图片
@@ -72,7 +81,7 @@ public class TankClient extends Frame {
 	}
 
 	public void launchFrame() {
-		for (int i=0; i<10; i++) {
+		for (int i=0; i<15; i++) {
 			tanks.add(new Tank((50+40*(i+1)), 50, false, this));
 		}
 
@@ -84,7 +93,7 @@ public class TankClient extends Frame {
 			}
 		});
 		setResizable(false);
-		setBackground(Color.GREEN);
+		setBackground(Color.BLACK);
 		addKeyListener(new KeyMonitor());
 		setVisible(true);
 

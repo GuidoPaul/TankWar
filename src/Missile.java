@@ -43,7 +43,11 @@ public class Missile {
 			return ;
 		}
 		Color c = g.getColor();
-		g.setColor(Color.BLACK);
+		if(good) {
+			g.setColor(Color.GREEN);
+		} else {
+			g.setColor(Color.CYAN);
+		}
 		g.fillOval(x, y, WIDTH, HEIGHT);
 		g.setColor(c);
 		move();

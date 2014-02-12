@@ -15,7 +15,8 @@ public class Tank {
 
 	private boolean good = true;
 	private boolean live = true;
-	private int life = 100;
+	private static final int TANK_LIFE = 100;
+	private int life = TANK_LIFE;
 
 	public static final int XSPEED = 5;
 	public static final int YSPEED = 5;
@@ -43,6 +44,7 @@ public class Tank {
 	public Tank(int x, int y, boolean good, TankClient tc) {
 		this(x, y, good);
 		this.tc = tc;  // * 持有对方引用
+		if(good) ptDir = Direction.U;
 	}
 
 	public boolean isLive() {
@@ -76,13 +78,13 @@ public class Tank {
 		Color c = g.getColor();  // *
 		if(good == true) g.setColor(Color.RED);
 		else g.setColor(Color.BLUE);
-		g.fillRect(x, y, WIDTH, HEIGHT);
-		g.setColor(c);  // *
+		g.fillOval(x, y, WIDTH, HEIGHT);
 
 		if(good) {
 			bb.draw(g);
 		}
 
+		g.setColor(Color.WHITE);
 		switch(ptDir) {
 			case L:
 				g.drawLine(x + Tank.WIDTH / 2, y + Tank.HEIGHT / 2, x, y + Tank.HEIGHT / 2);
@@ -109,6 +111,7 @@ public class Tank {
 				g.drawLine(x + Tank.WIDTH / 2, y + Tank.HEIGHT / 2, x, y + Tank.HEIGHT);
 				break;
 		}
+		g.setColor(c);  // *
 		move();
 	}
 
@@ -176,6 +179,9 @@ public class Tank {
 			case KeyEvent.VK_CONTROL :
 				fire();
 				break;
+			case KeyEvent.VK_A :
+				superfire();
+				break;
 			case KeyEvent.VK_LEFT :
 				bL = true;
 				break;
@@ -187,9 +193,6 @@ public class Tank {
 				break;
 			case KeyEvent.VK_DOWN :
 				bD = true;
-				break;
-			case KeyEvent.VK_A :
-				superfire();
 				break;
 		}
 		locateDirection();
@@ -283,6 +286,15 @@ public class Tank {
 			if(this != t) {
 				hitTank(t);
 			}
+		}
+		return false;
+	}
+
+	public boolean eat(Blood b) {
+		if(this.live && b.isLive() && this.getRect().intersects(b.getRect())) {
+			this.life = TANK_LIFE;
+			b.setLive(false);
+			return true;
 		}
 		return false;
 	}

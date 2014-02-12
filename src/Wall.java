@@ -21,7 +21,7 @@ public class Wall {
 
 	public void draw(Graphics g) {
 		Color c = g.getColor();
-		g.setColor(Color.BLACK);
+		g.setColor(Color.LIGHT_GRAY);
 		g.fillRect(x, y, w, h);
 		g.setColor(c);
 	}

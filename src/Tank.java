@@ -32,6 +32,8 @@ public class Tank {
 	private static Random r = new Random();
 	private int step = r.nextInt(20) + 3;
 
+	private BloodBar bb = new BloodBar();
+
 	public Tank(int x, int y, boolean good) {
 		this.x = x;
 		this.y = y;
@@ -76,6 +78,11 @@ public class Tank {
 		else g.setColor(Color.BLUE);
 		g.fillRect(x, y, WIDTH, HEIGHT);
 		g.setColor(c);  // *
+
+		if(good) {
+			bb.draw(g);
+		}
+
 		switch(ptDir) {
 			case L:
 				g.drawLine(x + Tank.WIDTH / 2, y + Tank.HEIGHT / 2, x, y + Tank.HEIGHT / 2);
@@ -278,6 +285,17 @@ public class Tank {
 			}
 		}
 		return false;
+	}
+
+	class BloodBar {
+		public void draw(Graphics g) {
+			Color c = g.getColor();
+			g.setColor(Color.RED);
+			g.drawRect(x, y - 10, WIDTH, 10);
+			int w = WIDTH * life / 100;
+			g.fillRect(x, y - 10, w, 10);
+			g.setColor(c);
+		}
 	}
 
 }

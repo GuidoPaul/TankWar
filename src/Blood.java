@@ -16,6 +16,7 @@ public class Blood {
 	private Random r = new Random();
 	private boolean go = false;
 
+	// 血块运动轨迹
 	private int[][] pos = {
 		{50, 350}, {50, 340}, {50, 330}, {50, 320}, {50, 310}, 
 		{60, 310}, {70, 310}, {80, 310}, {90, 310}, {100, 310},

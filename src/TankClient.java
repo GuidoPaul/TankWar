@@ -10,9 +10,20 @@ import java.awt.event.*;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * TankWar的主窗口
+ * @author Bslin
+ */
+
 public class TankClient extends Frame {
 
+	/**
+	 * 整个坦克游戏的宽度
+	 */
 	public static final int GAME_WIDTH = 800;
+	/**
+	 * 整个坦克游戏的高度
+	 */
 	public static final int GAME_HEIGHT = 600;
 
 	Tank myTank = new Tank(400, 500, true, this);
@@ -43,6 +54,12 @@ public class TankClient extends Frame {
 		w1.draw(g);
 		w2.draw(g);
 		b.draw(g);
+
+		if(tanks.size() <= 0) {
+			for (int i=0; i<10; i++) {
+				tanks.add(new Tank((50+40*(i+1)), 50, false, this));
+			}
+		}
 
 		for (int i=0; i<tanks.size(); i++) {
 			Tank t = tanks.get(i);
@@ -79,6 +96,10 @@ public class TankClient extends Frame {
 		paint(goffScreen);  // 先画到背面的虚拟图片
 		g.drawImage(offScreenImage, 0, 0, null);  // 再画到前面图片上
 	}
+
+	/**
+	 * launchFrame方法显示坦克主窗口
+	 */
 
 	public void launchFrame() {
 		for (int i=0; i<15; i++) {

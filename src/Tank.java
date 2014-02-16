@@ -176,6 +176,12 @@ public class Tank {
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 		switch(key) {
+			case KeyEvent.VK_F2 :
+				if(!live) {
+					live = true;
+					life = TANK_LIFE;
+				}
+				break;
 			case KeyEvent.VK_CONTROL :
 				fire();
 				break;
@@ -262,6 +268,12 @@ public class Tank {
 		x = oldX;
 		y = oldY;
 	}
+
+	/**
+	 * 坦克撞墙
+	 * @param w 被撞的墙
+	 * @return 撞上返回true,否则false
+	 */
 
 	public boolean hitWall(Wall w) {
 		if(this.live && this.getRect().intersects(w.getRect()) ) {

@@ -18,12 +18,9 @@ import java.util.ArrayList;
 public class TankClient extends Frame {
 
 	/**
-	 * 整个坦克游戏的宽度
+	 * 整个坦克游戏的宽度-高度
 	 */
 	public static final int GAME_WIDTH = 800;
-	/**
-	 * 整个坦克游戏的高度
-	 */
 	public static final int GAME_HEIGHT = 600;
 
 	Tank myTank = new Tank(400, 500, true, this);
@@ -38,12 +35,17 @@ public class TankClient extends Frame {
 	Image offScreenImage = null;
 
 	public void paint(Graphics g) {
+		/*
+		 * 显示子弹-爆炸-坦克的数量
+		 * 显示坦克的生命值
+		 * */
 		Color c = g.getColor();
-		g.setColor(Color.BLUE);
-		g.drawString("missiles count : " + missiles.size(), 10, 50);
-		g.drawString("explodes count : " + explodes.size(), 10, 70);
-		g.drawString("tanks    count : " + tanks.size(), 10, 90);
-		g.drawString("tanks     life : " + myTank.getLife(), 10, 110);
+		g.setColor(Color.WHITE);
+		g.drawString("missiles count: " + missiles.size(), 10, 50);
+		g.drawString("explodes count: " + explodes.size(), 10, 70);
+		g.drawString("tanks count: " + tanks.size(), 10, 90);
+		g.drawString("tanks life: " + myTank.getLife(), 10, 110);
+
 		g.setColor(c);
 
 		myTank.draw(g);
@@ -51,17 +53,18 @@ public class TankClient extends Frame {
 		myTank.hitWall(w2);
 		myTank.hitTanks(tanks);
 		myTank.eat(b);
+
 		w1.draw(g);
 		w2.draw(g);
 		b.draw(g);
 
 		if(tanks.size() <= 0) {
-			for (int i=0; i<10; i++) {
-				tanks.add(new Tank((50+40*(i+1)), 50, false, this));
+			for (int i = 0; i < 15; i++) {
+				tanks.add(new Tank((50 + 40 * (i + 1)), 50, false, this));
 			}
 		}
 
-		for (int i=0; i<tanks.size(); i++) {
+		for (int i = 0; i < tanks.size(); i ++) {
 			Tank t = tanks.get(i);
 			t.hitTanks(tanks);
 			t.hitWall(w1);
@@ -69,7 +72,7 @@ public class TankClient extends Frame {
 			t.draw(g);
 		}
 
-		for (int i=0; i<missiles.size(); i++) {
+		for (int i = 0; i < missiles.size(); i ++) {
 			Missile m = missiles.get(i);
 			m.hitTanks(tanks);
 			m.hitTank(myTank);
@@ -78,7 +81,7 @@ public class TankClient extends Frame {
 			m.draw(g);
 		}
 
-		for(int i=0; i<explodes.size(); i++) {
+		for(int i = 0; i < explodes.size(); i ++) {
 			Explode e = explodes.get(i);
 			e.draw(g);
 		}
@@ -102,17 +105,20 @@ public class TankClient extends Frame {
 	 */
 
 	public void launchFrame() {
-		for (int i=0; i<15; i++) {
-			tanks.add(new Tank((50+40*(i+1)), 50, false, this));
+
+		for (int i = 0; i < 15; i ++) {
+			tanks.add(new Tank((50 + 40 * (i + 1)), 50, false, this));
 		}
 
 		setBounds(400, 300, GAME_WIDTH, GAME_HEIGHT);
 		setTitle("TankWar");
+
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
 		});
+
 		setResizable(false);
 		setBackground(Color.BLACK);
 		addKeyListener(new KeyMonitor());

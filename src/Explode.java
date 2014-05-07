@@ -9,6 +9,7 @@ import java.awt.*;
 
 public class Explode {
 	int x, y;
+
 	private TankClient tc = null;
 	private boolean live = true;
 

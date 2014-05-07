@@ -15,6 +15,7 @@ public class Tank {
 
 	private boolean good = true;
 	private boolean live = true;
+
 	private static final int TANK_LIFE = 100;
 	private int life = TANK_LIFE;
 
@@ -24,7 +25,7 @@ public class Tank {
 	public static final int HEIGHT = 30;
 
 	private boolean  bL = false, bU = false, bR = false, bD = false;
-	enum Direction {L, LU, U, RU, R, RD, D, LD, STOP};
+
 	private Direction dir = Direction.STOP;
 	private Direction ptDir = Direction.D;
 
@@ -112,6 +113,7 @@ public class Tank {
 				break;
 		}
 		g.setColor(c);  // *
+
 		move();
 	}
 
@@ -255,7 +257,7 @@ public class Tank {
 
 	public void superfire() {
 		Direction[] dirs = Direction.values();
-		for (int i=0; i<8; i++) {
+		for (int i = 0; i < 8; i ++) {
 			fire(dirs[i]);
 		}
 	}
@@ -293,7 +295,7 @@ public class Tank {
 	}
 
 	public boolean hitTanks(java.util.List<Tank> tanks) {
-		for (int i=0; i<tanks.size(); i++) {
+		for (int i = 0; i < tanks.size(); i ++) {
 			Tank t = tanks.get(i);
 			if(this != t) {
 				hitTank(t);

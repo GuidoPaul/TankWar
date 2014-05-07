@@ -19,15 +19,15 @@ public class Missile {
 	public static final int WIDTH = 10;
 	public static final int HEIGHT = 10;
 
-	Tank.Direction ptDir;
+	Direction ptDir;
 
-	public Missile(int x, int y, Tank.Direction ptDir) {
+	public Missile(int x, int y, Direction ptDir) {
 		this.x = x;
 		this.y = y;
 		this.ptDir = ptDir;
 	}
 
-	public Missile(int x, int y, Tank.Direction ptDir, boolean good, TankClient tc) {
+	public Missile(int x, int y, Direction ptDir, boolean good, TankClient tc) {
 		this(x, y, ptDir);
 		this.good = good;
 		this.tc = tc;
@@ -50,6 +50,7 @@ public class Missile {
 		}
 		g.fillOval(x, y, WIDTH, HEIGHT);
 		g.setColor(c);
+
 		move();
 	}
 
@@ -112,7 +113,7 @@ public class Missile {
 	}
 
 	public boolean hitTanks(List<Tank> tanks) {
-		for (int i=0; i<tanks.size(); i++) {
+		for (int i = 0; i < tanks.size(); i ++) {
 			if(hitTank(tanks.get(i))) {
 				return true;
 			}

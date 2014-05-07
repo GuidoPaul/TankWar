@@ -89,6 +89,10 @@ public class TankClient extends Frame {
 		}
 	}
 
+	/**
+	 * update方法使用双缓存清除闪烁现象
+	 * */
+
 	public void update(Graphics g) {
 		if(offScreenImage == null) {
 			offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
@@ -133,6 +137,10 @@ public class TankClient extends Frame {
 	public static void main(String[] args) {
 		new TankClient().launchFrame();
 	}
+
+	/**
+	 * 进程, 刷新画面, 使坦克动起来
+	 * */
 
 	private class PaintThread implements Runnable {
 		public void run() {

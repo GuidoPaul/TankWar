@@ -66,4 +66,8 @@
 23. Version 2.3
 	1. Add a Blood class.
 	2. Add a eat method in the Tank class. It can add my tank's life.
-
+24. Version 2.4
+	1. Modify the picture version.
+25. Version 2.5
+	1. Add PropertyMgr class, it's a config doc.
+	2. Use Singleton pattern for config doc.

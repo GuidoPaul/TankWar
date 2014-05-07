@@ -25,6 +25,9 @@ public class Missile {
 	private static Toolkit tk = Toolkit.getDefaultToolkit();
 	private static Image[] missileImages = null;
 	private static Map<String, Image> imgs = new HashMap<String, Image>();
+	/**
+	 * 静态加载图片2, Map增加键值对, 减少出错
+	 * */
 	static {
 		missileImages = new Image[] {
 			tk.getImage(Missile.class.getClassLoader().getResource("images/missileL.gif")),
@@ -135,9 +138,19 @@ public class Missile {
 		}
 	}
 
+	/**
+	 * 取得子弹所在的矩形区域, 为检测是否碰撞
+	 * */
+
 	public Rectangle getRect() {
 		return new Rectangle(x, y, WIDTH, HEIGHT);
 	}
+
+	/**
+	 * 子弹打中坦克
+	 * @param t 被打中的坦克
+	 * @return 打中返回true,否则false
+	 */
 
 	public boolean hitTank(Tank t) {
 		if(getRect().intersects(t.getRect()) && t.isLive() && this.good != t.isGood() && this.live) {
@@ -165,6 +178,12 @@ public class Missile {
 		}
 		return false;
 	}
+
+	/**
+	 * 子弹打中墙
+	 * @param w 被打中的墙
+	 * @return 打中返回true,否则false
+	 */
 
 	public boolean hitWall(Wall w) {
 		if(this.live && this.getRect().intersects(w.getRect()) ) {

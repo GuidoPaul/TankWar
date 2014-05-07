@@ -81,6 +81,10 @@ public class Blood {
 		}
 	}
 
+	/**
+	 * 取得血块所在的矩形区域, 为检测是否被吃掉
+	 * */
+
 	public Rectangle getRect() {
 		return new Rectangle(x, y, w, h);
 	}

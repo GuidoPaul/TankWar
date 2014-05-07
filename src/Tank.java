@@ -41,6 +41,9 @@ public class Tank {
 	private static Image[] tankImages = null;
 	private static Map<String, Image> imgs = new HashMap<String, Image>();
 
+	/**
+	 * 静态加载图片2, Map增加键值对, 减少出错
+	 * */
 	static {
 		tankImages = new Image[] {
 			tk.getImage(Tank.class.getClassLoader().getResource("images/tankL.gif")),
@@ -285,9 +288,17 @@ public class Tank {
 		}
 	}
 
+	/**
+	 * 取得坦克所在的矩形区域, 为检测是否碰撞
+	 * */
+
 	public Rectangle getRect() {
 		return new Rectangle(x, y, WIDTH, HEIGHT);
 	}
+
+	/**
+	 * stay方法实现坦克撞墙后复位
+	 * */
 
 	private void stay() {
 		x = oldX;
@@ -308,6 +319,12 @@ public class Tank {
 		return false;
 	}
 
+	/**
+	 * 坦克撞上坦克
+	 * @param t 被撞的坦克
+	 * @return 撞上返回true,否则false
+	 */
+
 	public boolean hitTank(Tank t) {
 		if(this.live && t.isLive() && this.getRect().intersects(t.getRect())) {
 			this.stay();
@@ -327,6 +344,12 @@ public class Tank {
 		return false;
 	}
 
+	/**
+	 * 坦克吃血块
+	 * @param b 血块 
+	 * @return 吃掉血块返回true,否则false
+	 */
+
 	public boolean eat(Blood b) {
 		if(this.live && b.isLive() && this.getRect().intersects(b.getRect())) {
 			this.life = TANK_LIFE;
@@ -335,6 +358,10 @@ public class Tank {
 		}
 		return false;
 	}
+
+	/**
+	 * 坦克血块条
+	 * */
 
 	class BloodBar {
 		public void draw(Graphics g) {

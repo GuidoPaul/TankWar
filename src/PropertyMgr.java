@@ -8,6 +8,10 @@
 import java.util.Properties;
 import java.io.IOException;
 
+/**
+ * PropertyMgr使用Singleton模式增加效率
+ */
+
 public class PropertyMgr {
 	static Properties props = new Properties();
 

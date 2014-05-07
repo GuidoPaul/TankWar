@@ -15,6 +15,9 @@ public class Explode {
 	private TankClient tc = null;
 	private boolean live = true;
 
+	/**
+	 * 静态加载图片1
+	 * */
 	private static Toolkit tk = Toolkit.getDefaultToolkit();
 	private static Image[] imgs = {
 		tk.getImage(Explode.class.getClassLoader().getResource("images/0.gif")),

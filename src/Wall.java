@@ -26,6 +26,10 @@ public class Wall {
 		g.setColor(c);
 	}
 
+	/**
+	 * 取得墙所在的矩形区域, 为检测是否碰撞
+	 * */
+
 	public Rectangle getRect() {
 		return new Rectangle(x, y, w, h);
 	}

@@ -18,8 +18,8 @@ public class Tank {
 
 	private BloodBar bb = new BloodBar();
 
-	public static final int WIDTH = 30;
-	public static final int HEIGHT = 30;
+	public static final int WIDTH = 35;
+	public static final int HEIGHT = 35;
 
 	private static final int TANK_LIFE = 100;
 	private int life = TANK_LIFE;

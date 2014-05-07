@@ -9,6 +9,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Properties;
+import java.io.IOException;
 
 /**
  * TankWar的主窗口
@@ -59,7 +61,7 @@ public class TankClient extends Frame {
 		b.draw(g);
 
 		if(tanks.size() <= 0) {
-			for (int i = 0; i < 15; i++) {
+			for (int i = 0; i < Integer.parseInt(PropertyMgr.getProperty("reProduceTankCount")); i++) {
 				tanks.add(new Tank((50 + 40 * (i + 1)), 50, false, this));
 			}
 		}
@@ -105,8 +107,9 @@ public class TankClient extends Frame {
 	 */
 
 	public void launchFrame() {
-
-		for (int i = 0; i < 15; i ++) {
+		
+		int initTankCount = Integer.parseInt(PropertyMgr.getProperty("initTankCount"));
+		for (int i = 0; i < initTankCount; i ++) {
 			tanks.add(new Tank((50 + 40 * (i + 1)), 50, false, this));
 		}
 
